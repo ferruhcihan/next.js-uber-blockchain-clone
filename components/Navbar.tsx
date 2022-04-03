@@ -15,8 +15,8 @@ const style = {
 }
 
 const Navbar = () => {
-  const currentAccount = "";
-  const currentUser = "";
+  const currentAccount:string = "";
+  const currentUser:any = "";
 
   return (
     <div className={style.wrapper}>
