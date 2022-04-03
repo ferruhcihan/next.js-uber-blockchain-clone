@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import Navbar from "../components/Navbar";
 
 const styles = {
   wrapper: `h-screen w-screen flex flex-col`,
@@ -11,7 +12,7 @@ const styles = {
 const Home: NextPage = () => {
   return (
     <div className={styles.wrapper}>
-      {/* navbar */}
+      <Navbar />
       <div className={styles.main}>{/* map */}</div>
       <div className={styles.rideRequestContainer}>
         <div className={styles.rideRequest}>
