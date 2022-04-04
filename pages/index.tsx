@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Navbar from '../components/Navbar'
 import Map from '../components/Map'
+import LocationSelector from '../components/LocationSelector'
 
 const styles = {
   wrapper: `h-screen w-screen flex flex-col`,
@@ -19,7 +20,7 @@ const Home: NextPage = () => {
       </div>
       <div className={styles.rideRequestContainer}>
         <div className={styles.rideRequest}>
-          {/* location selector */}
+          <LocationSelector />
           {/* confirm ride */}
         </div>
       </div>
