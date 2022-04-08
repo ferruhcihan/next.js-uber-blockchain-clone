@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import uberX from '../assets/rides/uberX.png'
+import uberBlack from '../assets/rides/uberBlack.png'
+import uberBlackSuv from '../assets/rides/uberBlackSuv.png'
+import uberSelect from '../assets/rides/uberSelect.png'
+import uberXL from '../assets/rides/uberXL.png'
 
 const styles = {
   wrapper: `h-full flex flex-col`,
@@ -14,6 +18,26 @@ const carList: any[] = [
   {
     service: 'UberX',
     iconUrl: uberX,
+    priceMultiplier: 1,
+  },
+  {
+    service: 'UberBlack',
+    iconUrl: uberBlack,
+    priceMultiplier: 1,
+  },
+  {
+    service: 'UberBlackSuv',
+    iconUrl: uberBlackSuv,
+    priceMultiplier: 1,
+  },
+  {
+    service: 'UberSelect',
+    iconUrl: uberSelect,
+    priceMultiplier: 1,
+  },
+  {
+    service: 'UberXL',
+    iconUrl: uberXL,
     priceMultiplier: 1,
   },
 ]
