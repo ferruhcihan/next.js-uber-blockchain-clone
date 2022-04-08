@@ -5,6 +5,7 @@ import uberBlack from '../assets/rides/uberBlack.png'
 import uberBlackSuv from '../assets/rides/uberBlackSuv.png'
 import uberSelect from '../assets/rides/uberSelect.png'
 import uberXL from '../assets/rides/uberXL.png'
+import ethLogo from '../assets/eth-logo.png'
 
 const styles = {
   wrapper: `h-full flex flex-col`,
@@ -70,6 +71,7 @@ const RideSelector = () => {
               <div className={styles.price}>
                 {((basePrice / 10 ** 5) * car.priceMultiplier).toFixed(5)}
               </div>
+              <Image src={ethLogo} height={25} width={40} />
             </div>
           </div>
         ))}
