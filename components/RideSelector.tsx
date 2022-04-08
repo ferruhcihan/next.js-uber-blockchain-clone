@@ -15,6 +15,8 @@ const styles = {
   carDetails: `ml-2 flex-1`,
   service: `font-medium`,
   time: `text-xs text-blue-500`,
+  priceContainer: `flex items-center`,
+  price: `mr-[-0.8rem]`,
 }
 
 const carList: any[] = [
@@ -45,6 +47,8 @@ const carList: any[] = [
   },
 ]
 
+const basePrice = 1234
+
 const RideSelector = () => {
   return (
     <div className={styles.wrapper}>
@@ -61,6 +65,11 @@ const RideSelector = () => {
             <div className={styles.carDetails}>
               <div className={styles.service}>{car.service}</div>
               <div className={styles.time}>5 min away</div>
+            </div>
+            <div className={styles.priceContainer}>
+              <div className={styles.price}>
+                {((basePrice / 10 ** 5) * car.priceMultiplier).toFixed(5)}
+              </div>
             </div>
           </div>
         ))}
