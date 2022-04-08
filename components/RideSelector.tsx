@@ -12,6 +12,9 @@ const styles = {
   carList: `flex flex-col flex-1 overflow-scroll`,
   car: `flex p-3 m-2 items-center border-2 border-white`,
   carImage: `h-14`,
+  carDetails: `ml-2 flex-1`,
+  service: `font-medium`,
+  time: `text-xs text-blue-500`,
 }
 
 const carList: any[] = [
@@ -55,6 +58,10 @@ const RideSelector = () => {
               height={50}
               width={50}
             />
+            <div className={styles.carDetails}>
+              <div className={styles.service}>{car.service}</div>
+              <div className={styles.time}>5 min away</div>
+            </div>
           </div>
         ))}
       </div>
