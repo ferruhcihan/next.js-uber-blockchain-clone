@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import uberX from '../assets/rides/uberX.png'
 import uberBlack from '../assets/rides/uberBlack.png'
@@ -24,6 +24,20 @@ const basePrice = 1234
 
 const RideSelector = () => {
   const [carList, setCarList] = useState([]) as any
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const response = await fetch('/api/db/getRideTypes')
+
+        const data = await response.json()
+        setCarList(data.data)
+      } catch (error) {
+        console.error(error)
+      }
+    })()
+  }, [])
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>Choose a ride, or swipe up for more</div>
