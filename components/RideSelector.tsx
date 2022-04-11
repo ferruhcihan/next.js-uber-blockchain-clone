@@ -20,42 +20,15 @@ const styles = {
   price: `mr-[-0.8rem]`,
 }
 
-const carList: any[] = [
-  {
-    service: 'UberX',
-    iconUrl: uberX,
-    priceMultiplier: 1,
-  },
-  {
-    service: 'UberBlack',
-    iconUrl: uberBlack,
-    priceMultiplier: 1,
-  },
-  {
-    service: 'UberBlackSuv',
-    iconUrl: uberBlackSuv,
-    priceMultiplier: 1,
-  },
-  {
-    service: 'UberSelect',
-    iconUrl: uberSelect,
-    priceMultiplier: 1,
-  },
-  {
-    service: 'UberXL',
-    iconUrl: uberXL,
-    priceMultiplier: 1,
-  },
-]
-
 const basePrice = 1234
 
 const RideSelector = () => {
+  const [carList, setCarList] = useState([]) as any
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>Choose a ride, or swipe up for more</div>
       <div className={styles.carList}>
-        {carList.map((car, index) => (
+        {carList.map((car: any, index: number) => (
           <div className={styles.car} key={index}>
             <Image
               src={car.iconUrl}
