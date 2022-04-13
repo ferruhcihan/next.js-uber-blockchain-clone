@@ -57,5 +57,20 @@ export const UberProvider = ({ children }: any) => {
     } else return
   }, [pickup, dropoff])
 
-  return <UberContext.Provider value={{}}>{children}</UberContext.Provider>
+  return (
+    <UberContext.Provider
+      value={{
+        pickup,
+        setPickup,
+        dropoff,
+        setDropoff,
+        pickupCoordinates,
+        setPickupCoordinates,
+        dropoffCoordinates,
+        setDropoffCoordinates,
+      }}
+    >
+      {children}
+    </UberContext.Provider>
+  )
 }
