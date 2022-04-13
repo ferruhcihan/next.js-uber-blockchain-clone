@@ -6,7 +6,7 @@ const styles = {
   wrapper: `flex-1 h-full w-full`,
 }
 
-// mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN as string
 
 const Map = () => {
   useEffect(() => {
