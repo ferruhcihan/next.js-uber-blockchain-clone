@@ -8,6 +8,12 @@ export const UberProvider = ({ children }: any) => {
   const [pickupCoordinates, setPickupCoordinates] = useState()
   const [dropoffCoordinates, setDropoffCoordinates] = useState()
 
+  let metamask
+
+  if (typeof window !== 'undefined') {
+    metamask = window.ethereum
+  }
+
   const createLocationCoordinatePromise = (
     locationName: any,
     locationType: any
