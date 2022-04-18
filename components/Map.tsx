@@ -1,6 +1,6 @@
 import { useEffect, useContext } from 'react'
-import mapboxgl from 'mapbox-gl'
 import { UberContext } from '../context/uberContext'
+import mapboxgl from 'mapbox-gl'
 
 const styles = {
   wrapper: `flex-1 h-full w-full`,
