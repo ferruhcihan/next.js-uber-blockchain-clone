@@ -9,12 +9,48 @@ export const UberProvider = ({ children }: any) => {
   const [pickupCoordinates, setPickupCoordinates] = useState()
   const [dropoffCoordinates, setDropoffCoordinates] = useState()
   const [currentAccount, setCurrentAccount] = useState()
+  const [currentUser, setCurrentUser] = useState([])
+  const [selectedRide, setSelectedRide] = useState([])
+  const [price, setPrice] = useState()
+  const [basePrice, setBasePrice] = useState() as any
 
   let metamask
 
   if (typeof window !== 'undefined') {
     metamask = window.ethereum
   }
+
+  useEffect(() => {
+    checkIfWalletIsConnected()
+  }, [])
+
+  useEffect(() => {
+    if (!currentAccount) return
+    requestToGetCurrentUsersInfo(currentAccount)
+  }, [currentAccount])
+
+  useEffect(() => {
+    if (!pickupCoordinates || !dropoffCoordinates) return
+    ;(async () => {
+      try {
+        const response = await fetch('/api/map/getDuration', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            pickupCoordinates: `${pickupCoordinates[0]},${pickupCoordinates[1]}`,
+            dropoffCoordinates: `${dropoffCoordinates[0]},${dropoffCoordinates[1]}`,
+          }),
+        })
+
+        const data = await response.json()
+        setBasePrice(Math.round(await data.data))
+      } catch (error) {
+        console.error(error)
+      }
+    })()
+  }, [pickupCoordinates, dropoffCoordinates])
 
   const checkIfWalletIsConnected = async () => {
     if (!window.ethereum) return
@@ -32,9 +68,25 @@ export const UberProvider = ({ children }: any) => {
     }
   }
 
+  const connectWallet = async () => {
+    if (!window.ethereum) return
+    try {
+      const addressArray = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      })
+
+      if (addressArray.length > 0) {
+        setCurrentAccount(addressArray[0])
+        requestToCreateUserOnSanity(addressArray[0])
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const createLocationCoordinatePromise = (
-    locationName: any,
-    locationType: any
+    locationName: string,
+    locationType: string
   ) => {
     return new Promise<void>(async (resolve, reject) => {
       try {
@@ -99,6 +151,19 @@ export const UberProvider = ({ children }: any) => {
     }
   }
 
+  const requestToGetCurrentUsersInfo = async (walletAddress: string) => {
+    try {
+      const response = await fetch(
+        `/api/db/getUserInfo?walletAddress=${walletAddress}`
+      )
+
+      const data = await response.json()
+      setCurrentUser(data.data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <UberContext.Provider
       value={{
@@ -110,6 +175,15 @@ export const UberProvider = ({ children }: any) => {
         setPickupCoordinates,
         dropoffCoordinates,
         setDropoffCoordinates,
+        connectWallet,
+        currentAccount,
+        currentUser,
+        selectedRide,
+        setSelectedRide,
+        price,
+        setPrice,
+        basePrice,
+        metamask,
       }}
     >
       {children}
