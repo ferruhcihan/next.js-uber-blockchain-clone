@@ -8,11 +8,28 @@ export const UberProvider = ({ children }: any) => {
   const [dropoff, setDropoff] = useState('')
   const [pickupCoordinates, setPickupCoordinates] = useState()
   const [dropoffCoordinates, setDropoffCoordinates] = useState()
+  const [currentAccount, setCurrentAccount] = useState()
 
   let metamask
 
   if (typeof window !== 'undefined') {
     metamask = window.ethereum
+  }
+
+  const checkIfWalletIsConnected = async () => {
+    if (!window.ethereum) return
+    try {
+      const addressArray = await window.ethereum.request({
+        method: 'eth_accounts',
+      })
+
+      if (addressArray.length > 0) {
+        setCurrentAccount(addressArray[0])
+        requestToCreateUserOnSanity(addressArray[0])
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const createLocationCoordinatePromise = (
@@ -63,6 +80,24 @@ export const UberProvider = ({ children }: any) => {
       })()
     } else return
   }, [pickup, dropoff])
+
+  const requestToCreateUserOnSanity = async (address: string) => {
+    if (!window.ethereum) return
+    try {
+      await fetch('/api/db/createUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userWalletAddress: address,
+          name: faker.name.findName(),
+        }),
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <UberContext.Provider
