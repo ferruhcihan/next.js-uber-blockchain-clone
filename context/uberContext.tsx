@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
+import { faker } from '@faker-js/faker'
 
 export const UberContext = createContext('') as any
 
