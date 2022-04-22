@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Image from 'next/image'
 import ethLogo from '../assets/eth-logo.png'
+import { UberContext } from '../context/uberContext'
 
 const styles = {
   wrapper: `h-full flex flex-col`,
@@ -15,10 +16,12 @@ const styles = {
   price: `mr-[-0.8rem]`,
 }
 
-const basePrice = 1234
-
 const RideSelector = () => {
   const [carList, setCarList] = useState([]) as any
+  const { selectedRide, setSelectedRide, setPrice, basePrice } =
+    useContext(UberContext)
+
+  console.log(basePrice)
 
   useEffect(() => {
     ;(async () => {
