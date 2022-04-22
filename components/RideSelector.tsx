@@ -8,6 +8,7 @@ const styles = {
   title: `text-gray-500 text-center text-xs py-2 border-b`,
   carList: `flex flex-col flex-1 overflow-scroll`,
   car: `flex p-3 m-2 items-center border-2 border-white`,
+  selectedCar: `border-2 border-black flex p-3 m-2 items-center`,
   carImage: `h-14`,
   carDetails: `ml-2 flex-1`,
   service: `font-medium`,
@@ -41,7 +42,18 @@ const RideSelector = () => {
       <div className={styles.title}>Choose a ride, or swipe up for more</div>
       <div className={styles.carList}>
         {carList.map((car: any, index: number) => (
-          <div className={styles.car} key={index}>
+          <div
+            key={index}
+            className={`${
+              selectedRide.service === car.service
+                ? styles.selectedCar
+                : styles.car
+            }`}
+            onClick={() => {
+              setSelectedRide(car)
+              setPrice(((basePrice / 10 ** 5) * car.priceMultiplier).toFixed(5))
+            }}
+          >
             <Image
               src={car.iconUrl}
               className={styles.carImage}
